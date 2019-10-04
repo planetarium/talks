@@ -507,7 +507,7 @@ CodeCoverage.exe analyze /output:report.xml *.coverage
 같이 일해요! bit.ly/plnt-hire-2019
 ============
 
-![](hiring.png)
+[![](hiring.png)](https://bit.ly/plnt-hire-2019) [![](planetarium-sponser.png)](https://planetariumhq.com/)
 
 발표 자료: bit.ly/hong-netconf-2019
 
