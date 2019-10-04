@@ -9,6 +9,7 @@ style: |
     { position: absolute; left: 0; top: 0; width: 100%; height: 100%; padding: 0; line-height: 0; }
   section.image > p > img,
   section.image > p > a { display: block; margin: auto; }
+  section.image.zoom img { width: 100%; }
   section.table { font-size: 1.4em; }
   section.cover em:before,
   section.cover em:after { content: ''; }
@@ -70,6 +71,14 @@ style: |
 (세간에서의 뜻과는 다르지만)
 서버리스 온라인 멀티플레이어 게임 만들기
 ========================================
+
+---
+
+<!-- _class: image zoom -->
+
+[![Nine Chronicles](9c.jpg)](https://nine-chronicles.com/)
+
+<!-- 현재 팀에서 만들고 있는 탈중앙 P2P 멀티플레이어 게임, 《나인 크로니클》. -->
 
 ---
 
@@ -477,6 +486,47 @@ CodeCoverage.exe analyze /output:report.xml *.coverage
 
 ---
 
+DocFX
+=====
+
+dotnet.github.io/docfx
+
+ *  Markdown 기반의 정적 웹사이트 생성기
+ *  C# 문서의 XML 주석을 추출하여 API 문서도 자동 생성
+ *  API 문서 뿐만 아니라 가이드나 튜토리얼 문서를 통합해서 관리 가능
+ *  문서 생성기라기 보다는 문서를 포함한 프로젝트 웹사이트를 만들어주는 느낌
+ *  Python 쪽에서 많이 쓰는 Sphinx와 비슷한 위치
+
+---
+
+<!-- _class: image -->
+
+[![](libplanet-website.png)](https://docs.libplanet.io/)
+
+<!-- DocFX로 생성한 Libplanet 웹사이트. -->
+
+---
+
+<!-- _class: image -->
+
+[![](libplanet-api-docs.png)](https://docs.libplanet.io/)
+
+<!-- DocFX로 생성한 Libplanet API 문서. -->
+
+---
+
+자질구래한 릴리스 과정
+======================
+
+ *  Git 태그 생성
+ *  체인지로그 추출
+ *  GitHub Releases에 패키지 파일 업로드
+ *  API 문서와 웹사이트 생성 및 업로드
+ *  NuGet에 패키지 업로드
+ *  메인테이너 중 누구라도 쉽게 릴리스할 수 있게 자동화할 수 없을까?
+
+---
+
 <!-- _class: image -->
 
 [![](github-actions.png)](https://github.com/planetarium/libplanet/runs/242816661)
@@ -503,6 +553,14 @@ CodeCoverage.exe analyze /output:report.xml *.coverage
 
 <!-- _class: image -->
 
+[![](libplanet-website-release.png)](https://docs.libplanet.io/0.6.0/)
+
+<!-- GitHub Pages에 해당 버전의 DocFX 웹사이트를 만들어서 업로드. -->
+
+---
+
+<!-- _class: image -->
+
 [![](nuget-libplanet.png)](https://www.nuget.org/packages/Libplanet/)
 
 <!-- NuGet에도 같이 올라감. -->
@@ -517,17 +575,41 @@ CodeCoverage.exe analyze /output:report.xml *.coverage
 
 ---
 
+마무리: .NET + 오픈 소스, 어땠나
+================================
+
+아쉬웠던 것들.
+
+ *  MS가 열심히 오픈 소스를 하고 있지만, 많은 .NET 프로그래머들은 아직은 오픈 소스에 미온적
+     *  소스 코드를 여전히 Git이 아니라 압축 파일로 배포한다거나
+     *  소스 코드 없이 DLL만 배포한다거나
+     *  소스 코드는 공개했는데 라이선스 명시가 없어서 오픈 소스가 아니라거나
+ *  .NET Core로 넘어가는 과도기적 상황
+     *  아직 .NET Framework만 타깃하는 NuGet 패키지도 많다.
+     *  Unity는 .NET Core로 언제 넘어갈 것인가.
+
+---
+
+마무리: .NET + 오픈 소스, 어땠나
+================================
+
+좋았던 것들.
+
+ *  Windows 일변도에 오픈 소스와는 담을 쌓았다는 고정관념과 달리,
+    .NET Core나 Mono 덕분에 Linux나 macOS에서도 얼마든지 개발 가능.
+ *  Visual Studio를 쓰지 않으면 불편을 감수해야 했던 10년 전과는 다르게,
+    `dotnet` CLI나 OmniSharp 등 다양한 개발 환경을 두루 지원할 수 있는 기반이 마련돼 있다.
+ *  Roslyn analyzer의 활용 방법은 무궁무진해 보인다.
+ *  GitHub이 이제 Microsoft 것이라 그런지, GitHub에서 C# 및 .NET 지원을 아주 잘 해준다.
+    (예: 패키지 레지스트리, 코드 분석 등.)
+
+---
+
 <!-- _class: hiring -->
 
-같이 일해요! bit.ly/plnt-hire-2019
-============
+감사합니다! 같이 일해요! bit.ly/plnt-hire-2019
+========================
 
 [![](hiring.png)](https://bit.ly/plnt-hire-2019) [![](planetarium-sponser.png)](https://planetariumhq.com/)
 
 발표 자료: bit.ly/hong-netconf-2019
-
-<!--
-
-- changelog-check
-
--->
