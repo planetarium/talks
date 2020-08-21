@@ -218,7 +218,7 @@ https://en.wikipedia.org/wiki/Surjective_function
  *  Libplanet과 비슷한 문제를 푸는 프로젝트들엔 뭐가 있을까?
  *  **비트토렌트!**
 
-<!-- 그래서 이전에 있던 다른 사람들은, Libplanet과 비슷한 문제를 푸는 프로젝트에는 무엇이 있을지 찾아보기로 했습니다. 그 중에는 비트토렌트라는 프로젝트가 있었습니다. -->
+<!-- 그래서 이전에 있던 다른 사람들은, Libplanet과 비슷한 문제를 푸는 프로젝트에는 무엇이 있을지 찾아보기로 했습니다. 그래서 잘 생각해보니, 등잔 및이 어둡다고, 우리가 많이 쓰고 있는 비트토렌트가 떠올랐습니다. P2P 분산 네트워크 기술을 사용하고, 받을 파일이 같은 파일인지 다른 파일인지를 해시를 이용해서 체크하는 등, 목표는 다르지만 Libplanet과 많이 겹치는 문제들을 이미 푼 프로젝트니까요. -->
 
 ---
 
@@ -231,7 +231,7 @@ https://en.wikipedia.org/wiki/Surjective_function
  *  1∶1 대응이 되므로 같은 파일은 같은 토렌트 파일 및 매그닛으로 표현된다.
     → 따라서 다른 사람과 더 잘 겹치고 공유가 더 잘 된다.
 
-<!-- Bencoding이라는 비트토렌트가 사용하는 직렬화 포맷이 있었습니다. 비트토렌트에서 쓰기 위해서 만들어졌던 직렬화 포맷이었고 생긴 이유도 저희가 겪고 있던 문제와 같이 1:N 대응 문제 때문에 당시 많이 쓰이던 XML이나 pickle을 사용할 수 없었기 때문이었습니다. 비트토렌트는 토렌트 메타데이터를 직렬화 할때 사용하고 그 토렌트 파일을 해시하여 매그닛 주소로 사용합니다. 1:1 대응이 되는 덕분에 같은 파일은 같은 토렌트 파일 및 매그닛으로 표현되어 잘 겹치고 공유가 더 잘 되는 장점을 가지게 되었죠.  -->
+<!-- 그러한 비트토렌트는 Bencoding이라는 직렬화 포맷이 사용했습니다. 비트토렌트에서 쓰기 위해서 만들어졌던 직렬화 포맷이었고 생긴 이유도 저희가 겪고 있던 문제와 같이 1:N 대응 문제 때문에 당시 많이 쓰이던 XML이나 pickle을 사용할 수 없었기 때문이었습니다. 비트토렌트는 토렌트 메타데이터를 직렬화 할때 사용하고 그 토렌트 파일을 해시하여 매그닛 주소로 사용합니다. 1:1 대응이 되는 덕분에 같은 파일은 같은 토렌트 파일 및 매그닛으로 표현되어 잘 겹치고 공유가 더 잘 되는 장점을 가지게 되었죠.  -->
 
 ---
 
@@ -404,13 +404,17 @@ BValue = Any
 
 ---
 
-# Bencodex에서 1:1 제공하는 법
+# Bencodex에서 입력:출력 1∶1 만족하는 원리
 
-- 사전 키 타입 제한: `bytes`, `str`
-  - 키 정렬 순서 정의
-- 문자열 표현 방법 통일: length-prefix
+- 정규화
+  - 사전 키 정렬 순서 정의
+  - 정수 0를 표현하는 경우
+    - [X] `i-0e`
+    - [O] `i0e`
 
-<!-- TODO: 사전에 있어서 JSON가 어떤 점이 달라서 제공하는지, 문자열 cstring (terminated Null), length-prefix (Pascal) -->
+<!-- TODO: 사전(dict)의 키 순서를 임의로 섞는 것을 원천 차단, 정수 표현 방식에 있어서도 정확히 하나의 표현 방식만 존재함.  -->
+
+<!-- NOTE: 정규화, 랜덤 접근 in https://j.mearie.org/post/122845365013/serialization -->
 
 ---
 
@@ -418,12 +422,7 @@ BValue = Any
 
 ~~~~ python
     elif isinstance(value, collections.abc.Mapping):
-        def is_unicode(k: Union[bytes, str]) -> bool:
-            if isinstance(k, bytes):
-                return False
-            elif isinstance(k, str):
-                return True
-            raise TypeError('dictionary key must be a bytes or str')
+        …
         items = [
             (u, k.encode('utf-8') if u else k, v)
             for k, v in value.items()
@@ -436,8 +435,7 @@ BValue = Any
                 yield b'u'
             yield from write(k)
             yield from write(v)
-        yield b'e'
-        return
+        …
 ~~~~
 
 <!-- TODO: 코드 리딩 -->
@@ -486,14 +484,16 @@ def load_testsuite_data() -> Generator[Tuple[str, object, bytes], None, None]:
 
 # Bencodex 구현체 및 보조 도구
 
- * [bencodex.net][bencodex-net] - .NET
- * [bencodex-python][bencodex-python] - Python
- * [disjukr/bencodex][disjukr-bencodex] - TypeScript
- * [bencodex-viewer] - Bencodex 웹 뷰어
+ * [bencodex.net] - .NET
+ * [bencodex-python] - Python
+ * [disjukr/bencodex] - TypeScript
+ * [bencodex-haskell] - Haskell
+ * [bencodex-viewer] - Bencodex 웹 기반 시각화 도구
  
-[bencodex-net]: https://github.com/planetarium/bencodex.net
+[bencodex.net]: https://github.com/planetarium/bencodex.net
 [bencodex-python]: https://github.com/planetarium/bencodex-python
-[disjukr-bencodex]: https://github.com/disjukr/bencodex
+[disjukr/bencodex]: https://github.com/disjukr/bencodex
+[bencodex-haskell]: https://github.com/dahlia/bencodex-haskell
 [bencodex-viewer]: https://github.com/planetarium/bencodex-viewer
 
 <!-- - (약 2분/2매) **기타 Bencodex 주변 도구**: 여담으로 다른 bencodex 구현체들, 보조 도구들 (bencodex-viewer) -->
