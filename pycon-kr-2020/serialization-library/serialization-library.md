@@ -433,12 +433,6 @@ BValue = Any
             for u in [is_unicode(k)]
         ]
         items.sort()
-        yield b'd'
-        for u, k, v in items:
-            if u:
-                yield b'u'
-            yield from write(k)
-            yield from write(v)
         …
 ~~~~
 
@@ -468,8 +462,7 @@ BValue = Any
 
 ~~~~ python
 def load_testsuite_data() -> Generator[Tuple[str, object, bytes], None, None]:
-    pkg = 'bencodex'
-    suffix_re = re.compile(r'\.ya?ml$')
+    …
     for filename in resource_listdir(pkg, 'spec/testsuite'):
         if not filename.lower().endswith(('.yaml', '.yml')):
             continue
@@ -478,8 +471,7 @@ def load_testsuite_data() -> Generator[Tuple[str, object, bytes], None, None]:
         if not resource_exists(pkg, data_filename):
             continue
         yaml = load_yaml(resource_string(pkg, yaml_filename).decode('utf-8'))
-        data = resource_string(pkg, data_filename)
-        yield filename, yaml, data
+        …
 ~~~~
 
 <!-- TODO: 코드 리딩, 테스트슈트들을 가져와서 테스트한다. -->
