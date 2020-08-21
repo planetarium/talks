@@ -182,7 +182,9 @@ fa2a3813f85b7fc9221fe149d217234654b36f4a  tx.json
 
 <!-- 저희가 원하는 해당 가정, …, 을 만족하는 직렬화 포맷은 Bijection이라고 불리는 전단사 함수의 특성을 지닐 필요가 있었습니다. 슬라이드에서 첨부한 이미지처럼 한 입력에 대해서 한 결과가 대응하는, 1:1 대응을 해야만 했었습니다. -->
 
-https://en.wikipedia.org/wiki/Bijection
+그림 출처: [Bijection] — *Wikipedia*
+
+[Bijection]: https://en.wikipedia.org/wiki/Bijection
 
 ---
 
@@ -192,7 +194,9 @@ https://en.wikipedia.org/wiki/Bijection
 
 ![w:300 h:300](https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Surjection.svg/1024px-Surjection.svg.png)
 
-https://en.wikipedia.org/wiki/Surjective_function
+그림 출처: [Surjective_function] — *Wikipedia*
+
+[Surjective_function]: https://en.wikipedia.org/wiki/Surjective_function
 
 
 <!-- 반면에 JSON은 세 가지의 에를 들어가며 살펴보았듯이 한 의미에 대해서 여러가지 방법으로 표현 할 수 있었습니다. 다시 말해 본 슬라이드의 그림과 같이 한 의미에 대해 N개의 표현이 존재한다는 것이죠. 때문에 JSON을 직렬화 포맷으로 채용하기는 어려웠습니다.-->
