@@ -17,6 +17,7 @@ style: |
   section.main > p, section.main > p > a { color: rgb(118, 251, 227); font-family: "Apple SD Gothic Neo"; font-size: 30px; font-weight: 800; }
 ---
 
+<!-- backgroundImage: "url(pycon-kr-2020-title-bg.jpeg)" -->
 <!-- _class: main -->
 
 직렬화 포맷 개량과 라이브러리 구현
@@ -37,6 +38,8 @@ BitTorrent에서 쓰이는 직렬화 포맷인 bencode를 개량하고 그 구�
 -->
 
 ---
+
+<!-- backgroundImage: "url(pycon-kr-2020-content-bg.jpeg)" -->
 
 ## 이도건 | Moreal
 
